@@ -16,13 +16,12 @@ const AddDealModal = ({ isOpen, onClose, onSubmit, contacts = [], loading = fals
   });
   const [errors, setErrors] = useState({});
 
-  const stages = [
-    { value: "lead", label: "Lead" },
-    { value: "qualified", label: "Qualified" },
-    { value: "proposal", label: "Proposal" },
-    { value: "negotiation", label: "Negotiation" },
-    { value: "closed-won", label: "Closed Won" },
-    { value: "closed-lost", label: "Closed Lost" }
+const stages = [
+    { value: "Lead", label: "Lead" },
+    { value: "Qualified", label: "Qualified" },
+    { value: "Proposal", label: "Proposal" },
+    { value: "Won", label: "Won" },
+    { value: "Lost", label: "Lost" }
   ];
 
   const handleInputChange = (field, value) => {
