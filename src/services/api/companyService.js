@@ -166,9 +166,8 @@ const params = {
             field: {
               Name: "description"
             }
-          },
+},
           {
-{
             field: {
               Name: "Tags"
             }
