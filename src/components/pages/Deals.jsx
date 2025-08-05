@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/organisms/Header";
 import DealPipeline from "@/components/organisms/DealPipeline";
+import AddDealModal from "@/components/molecules/AddDealModal";
 import { dealService } from "@/services/api/dealService";
 import { contactService } from "@/services/api/contactService";
 import { toast } from "react-toastify";
 
 const Deals = ({ onMenuClick }) => {
-  const [deals, setDeals] = useState([]);
+const [deals, setDeals] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+  const [isAddDealModalOpen, setIsAddDealModalOpen] = useState(false);
+  const [modalLoading, setModalLoading] = useState(false);
   const loadData = async () => {
     try {
       setLoading(true);
@@ -65,13 +67,27 @@ const Deals = ({ onMenuClick }) => {
       onClick: () => toast.info("Already in pipeline view"),
       variant: "outline"
     },
-    {
+{
       label: "Add Deal",
       icon: "Plus",
-      onClick: () => toast.info("Add Deal feature coming soon!"),
+      onClick: () => setIsAddDealModalOpen(true),
       variant: "primary"
     }
   ];
+
+const handleCreateDeal = async (dealData) => {
+    setModalLoading(true);
+    try {
+      const newDeal = await dealService.create(dealData);
+      setDeals(prev => [...prev, newDeal]);
+      toast.success("Deal created successfully!");
+    } catch (err) {
+      toast.error("Failed to create deal");
+      throw err;
+    } finally {
+      setModalLoading(false);
+    }
+  };
 
   return (
     <div className="flex-1 overflow-auto">
@@ -98,6 +114,14 @@ const Deals = ({ onMenuClick }) => {
           />
         </motion.div>
       </main>
+
+      <AddDealModal
+        isOpen={isAddDealModalOpen}
+        onClose={() => setIsAddDealModalOpen(false)}
+        onSubmit={handleCreateDeal}
+        contacts={contacts}
+        loading={modalLoading}
+      />
     </div>
   );
 };
