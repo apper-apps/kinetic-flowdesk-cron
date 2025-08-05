@@ -1,4 +1,5 @@
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import React from "react";
 
 // Table name mapping to database
 const tableName = 'company'; // This would need to be updated when database schema is available
@@ -18,7 +19,7 @@ const companyService = {
     try {
       const apperClient = getApperClient();
       
-      const params = {
+const params = {
         fields: [
           {
             field: {
@@ -37,32 +38,37 @@ const companyService = {
           },
           {
             field: {
-              Name: "size"
-            }
-          },
-          {
-            field: {
-              Name: "location"
-            }
-          },
-          {
-            field: {
               Name: "website"
             }
           },
           {
             field: {
-              Name: "phone"
+              Name: "contactEmail"
             }
           },
           {
             field: {
-              Name: "email"
+              Name: "phoneNumber"
             }
           },
           {
             field: {
-              Name: "createdAt"
+              Name: "companySize"
+            }
+          },
+          {
+            field: {
+              Name: "address"
+            }
+          },
+          {
+            field: {
+              Name: "description"
+            }
+          },
+          {
+            field: {
+              Name: "Tags"
             }
           }
         ],
@@ -114,7 +120,7 @@ const companyService = {
     try {
       const apperClient = getApperClient();
       
-      const params = {
+const params = {
         fields: [
           {
             field: {
@@ -133,32 +139,38 @@ const companyService = {
           },
           {
             field: {
-              Name: "size"
-            }
-          },
-          {
-            field: {
-              Name: "location"
-            }
-          },
-          {
-            field: {
               Name: "website"
             }
           },
           {
             field: {
-              Name: "phone"
+              Name: "contactEmail"
             }
           },
           {
             field: {
-              Name: "email"
+              Name: "phoneNumber"
             }
           },
           {
             field: {
-              Name: "createdAt"
+              Name: "companySize"
+            }
+          },
+          {
+            field: {
+              Name: "address"
+            }
+          },
+          {
+            field: {
+              Name: "description"
+            }
+          },
+          {
+{
+            field: {
+              Name: "Tags"
             }
           }
         ]
@@ -205,18 +217,19 @@ const companyService = {
     try {
       const apperClient = getApperClient();
       
-      // Only include updateable fields
+// Only include updateable fields
       const params = {
         records: [
           {
             companyName: companyData.companyName,
             industry: companyData.industry,
-            size: companyData.size,
-            location: companyData.location,
             website: companyData.website,
-            phone: companyData.phone,
-            email: companyData.email,
-            createdAt: new Date().toISOString()
+            contactEmail: companyData.contactEmail,
+            phoneNumber: companyData.phoneNumber,
+            companySize: companyData.companySize,
+            address: companyData.address,
+            description: companyData.description,
+            Tags: companyData.Tags?.join(',') || ''
           }
         ]
       };
@@ -271,17 +284,19 @@ const companyService = {
       const apperClient = getApperClient();
       
       // Only include updateable fields
-      const params = {
+const params = {
         records: [
           {
             Id: parseInt(id),
             companyName: companyData.companyName,
             industry: companyData.industry,
-            size: companyData.size,
-            location: companyData.location,
             website: companyData.website,
-            phone: companyData.phone,
-            email: companyData.email
+            contactEmail: companyData.contactEmail,
+            phoneNumber: companyData.phoneNumber,
+            companySize: companyData.companySize,
+            address: companyData.address,
+            description: companyData.description,
+            Tags: companyData.Tags?.join(',') || ''
           }
         ]
       };
@@ -383,7 +398,7 @@ const companyService = {
     try {
       const apperClient = getApperClient();
       
-      const params = {
+const params = {
         fields: [
           {
             field: {
@@ -402,12 +417,12 @@ const companyService = {
           },
           {
             field: {
-              Name: "size"
+              Name: "website"
             }
           },
           {
             field: {
-              Name: "location"
+              Name: "contactEmail"
             }
           }
         ],
@@ -446,7 +461,7 @@ const companyService = {
     try {
       const apperClient = getApperClient();
       
-      const params = {
+const params = {
         fields: [
           {
             field: {
@@ -465,12 +480,12 @@ const companyService = {
           },
           {
             field: {
-              Name: "size"
+              Name: "website"
             }
           },
           {
             field: {
-              Name: "location"
+              Name: "contactEmail"
             }
           }
         ],

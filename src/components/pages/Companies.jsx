@@ -126,8 +126,23 @@ const Companies = ({ onMenuClick }) => {
   };
 
   // Handle company click
-  const handleCompanyClick = (company) => {
-    toast.info(`Opening company details for ${company.companyName}`);
+const handleCompanyClick = (company) => {
+    // Create a detailed view showing company information
+    const companyDetails = `
+Company: ${company.companyName}
+Industry: ${company.industry}
+Size: ${company.companySize} employees
+Website: ${company.website || 'Not provided'}
+Email: ${company.contactEmail}
+Phone: ${company.phoneNumber || 'Not provided'}
+Address: ${company.address || 'Not provided'}
+Description: ${company.description || 'No description available'}
+    `.trim();
+    
+    toast.info(companyDetails, {
+      autoClose: 8000,
+      style: { whiteSpace: 'pre-line', fontFamily: 'monospace', fontSize: '12px' }
+    });
   };
 
   // Handle edit click

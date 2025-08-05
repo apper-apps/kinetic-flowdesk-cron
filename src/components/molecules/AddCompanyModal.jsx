@@ -14,7 +14,7 @@ const AddCompanyModal = ({
   contacts = [], 
   loading = false 
 }) => {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     companyName: "",
     industry: "",
     website: "",
@@ -23,7 +23,6 @@ const AddCompanyModal = ({
     companySize: "",
     address: "",
     description: "",
-    associatedContacts: [],
     Tags: []
   });
 
@@ -61,7 +60,7 @@ const AddCompanyModal = ({
   // Initialize form data when company prop changes
   useEffect(() => {
     if (company) {
-      setFormData({
+setFormData({
         companyName: company.companyName || "",
         industry: company.industry || "",
         website: company.website || "",
@@ -70,8 +69,7 @@ const AddCompanyModal = ({
         companySize: company.companySize || "",
         address: company.address || "",
         description: company.description || "",
-        associatedContacts: company.associatedContacts || [],
-        Tags: company.Tags || []
+        Tags: typeof company.Tags === 'string' ? company.Tags.split(',').filter(t => t.trim()) : (company.Tags || [])
       });
     } else {
       setFormData({
@@ -117,7 +115,7 @@ const AddCompanyModal = ({
   };
 
   // Validate form
-  const validateForm = () => {
+const validateForm = () => {
     const newErrors = {};
 
     if (!formData.companyName.trim()) {
@@ -135,7 +133,7 @@ const AddCompanyModal = ({
     }
 
     if (formData.website && !/^https?:\/\/.+\..+/.test(formData.website)) {
-      newErrors.website = "Please enter a valid website URL";
+      newErrors.website = "Please enter a valid website URL (must start with http:// or https://)";
     }
 
     if (!formData.companySize) {
@@ -332,14 +330,14 @@ const AddCompanyModal = ({
                 </div>
 
                 {/* Address */}
-                <div>
+<div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Address
                   </label>
                   <textarea
                     value={formData.address}
                     onChange={(e) => handleInputChange("address", e.target.value)}
-                    placeholder="Enter company address"
+                    placeholder="Enter company address (street, city, state, zip)"
                     rows={3}
                     className="flex w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 resize-none"
                   />
@@ -353,10 +351,31 @@ const AddCompanyModal = ({
                   <textarea
                     value={formData.description}
                     onChange={(e) => handleInputChange("description", e.target.value)}
-                    placeholder="Enter company description"
+                    placeholder="Brief description of the company and its business"
                     rows={4}
                     className="flex w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 resize-none"
                   />
+                </div>
+
+                {/* Tags */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Tags
+                  </label>
+                  <Input
+                    type="text"
+                    value={Array.isArray(formData.Tags) ? formData.Tags.join(', ') : formData.Tags}
+                    onChange={(e) => {
+                      const tagsString = e.target.value;
+                      const tagsArray = tagsString.split(',').map(tag => tag.trim()).filter(tag => tag);
+                      handleInputChange("Tags", tagsArray);
+                    }}
+                    placeholder="Enter tags separated by commas (e.g., client, startup, tech)"
+                    className="w-full"
+                  />
+                  <p className="mt-1 text-xs text-gray-500">
+                    Separate multiple tags with commas
+                  </p>
                 </div>
 
                 {/* Associated Contacts */}
