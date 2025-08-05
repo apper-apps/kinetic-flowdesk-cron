@@ -16,8 +16,9 @@ export const quoteService = {
     try {
       const apperClient = getApperClient();
       const params = {
-        fields: [
+fields: [
           { field: { Name: "Name" } },
+          { field: { Name: "Tags" } },
           { field: { Name: "companyId" } },
           { field: { Name: "contactId" } },
           { field: { Name: "dealId" } },
@@ -72,8 +73,9 @@ export const quoteService = {
     try {
       const apperClient = getApperClient();
       const params = {
-        fields: [
+fields: [
           { field: { Name: "Name" } },
+          { field: { Name: "Tags" } },
           { field: { Name: "companyId" } },
           { field: { Name: "contactId" } },
           { field: { Name: "dealId" } },
