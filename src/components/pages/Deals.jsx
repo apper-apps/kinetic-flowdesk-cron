@@ -78,8 +78,8 @@ const [deals, setDeals] = useState([]);
 const handleCreateDeal = async (dealData) => {
     setModalLoading(true);
     try {
-      const newDeal = await dealService.create(dealData);
-      setDeals(prev => [...prev, newDeal]);
+      await dealService.create(dealData);
+      await loadData(); // Refresh the entire deals list to ensure consistency
       toast.success("Deal created successfully!");
     } catch (err) {
       toast.error("Failed to create deal");
