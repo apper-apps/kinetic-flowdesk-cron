@@ -1,0 +1,134 @@
+[
+  {
+    "Id": 1,
+    "title": "TechCorp Enterprise Package",
+    "value": 75000,
+    "stage": "Proposal",
+    "contactId": 1,
+    "probability": 80,
+    "expectedCloseDate": "2024-03-15T00:00:00Z",
+    "notes": "Large enterprise deal with potential for multi-year contract. Decision maker very engaged.",
+    "createdAt": "2024-02-01T10:00:00Z"
+  },
+  {
+    "Id": 2,
+    "title": "InnovateLab Upgrade",
+    "value": 12000,
+    "stage": "Qualified",
+    "contactId": 2,
+    "probability": 65,
+    "expectedCloseDate": "2024-03-20T00:00:00Z",
+    "notes": "Existing customer looking to upgrade from basic to professional plan. Budget confirmed.",
+    "createdAt": "2024-02-05T14:30:00Z"
+  },
+  {
+    "Id": 3,
+    "title": "Creative Studio Collaboration Tools",
+    "value": 8500,
+    "stage": "Lead",
+    "contactId": 3,
+    "probability": 40,
+    "expectedCloseDate": "2024-04-01T00:00:00Z",
+    "notes": "Initial interest shown. Need to understand their specific design workflow requirements.",
+    "createdAt": "2024-02-10T09:15:00Z"
+  },
+  {
+    "Id": 4,
+    "title": "Thompson Legal Document Management",
+    "value": 25000,
+    "stage": "Won",
+    "contactId": 4,
+    "probability": 100,
+    "expectedCloseDate": "2024-02-28T00:00:00Z",
+    "notes": "Successfully closed! Law firm signed annual contract for premium document management features.",
+    "createdAt": "2024-01-15T11:00:00Z"
+  },
+  {
+    "Id": 5,
+    "title": "Global Health Data Platform",
+    "value": 95000,
+    "stage": "Proposal",
+    "contactId": 5,
+    "probability": 75,
+    "expectedCloseDate": "2024-03-25T00:00:00Z",
+    "notes": "Healthcare organization needs HIPAA-compliant solution. Technical requirements being finalized.",
+    "createdAt": "2024-02-12T16:45:00Z"
+  },
+  {
+    "Id": 6,
+    "title": "FinancePlus Analytics Dashboard",
+    "value": 18000,
+    "stage": "Qualified",
+    "contactId": 6,
+    "probability": 55,
+    "expectedCloseDate": "2024-04-10T00:00:00Z",
+    "notes": "Financial firm interested but price-sensitive. May need to offer custom pricing package.",
+    "createdAt": "2024-02-18T13:20:00Z"
+  },
+  {
+    "Id": 7,
+    "title": "RetailMax Inventory Expansion",
+    "value": 45000,
+    "stage": "Proposal",
+    "contactId": 7,
+    "probability": 85,
+    "expectedCloseDate": "2024-03-12T00:00:00Z",
+    "notes": "Existing customer expanding to 15 new locations. Contract terms being negotiated.",
+    "createdAt": "2024-02-08T12:30:00Z"
+  },
+  {
+    "Id": 8,
+    "title": "EduTech Learning Management",
+    "value": 32000,
+    "stage": "Lead",
+    "contactId": 8,
+    "probability": 35,
+    "expectedCloseDate": "2024-04-15T00:00:00Z",
+    "notes": "Educational institution evaluating multiple vendors. Need to highlight our education-specific features.",
+    "createdAt": "2024-02-20T10:45:00Z"
+  },
+  {
+    "Id": 9,
+    "title": "ConstructionPro Project Management",
+    "value": 28000,
+    "stage": "Qualified",
+    "contactId": 9,
+    "probability": 70,
+    "expectedCloseDate": "2024-04-05T00:00:00Z",
+    "notes": "Construction company has budget approved. Implementation timeline being discussed.",
+    "createdAt": "2024-02-25T15:00:00Z"
+  },
+  {
+    "Id": 10,
+    "title": "Premium Food Services Integration",
+    "value": 15000,
+    "stage": "Won",
+    "contactId": 10,
+    "probability": 100,
+    "expectedCloseDate": "2024-02-20T00:00:00Z",
+    "notes": "Restaurant chain signed contract for POS integration across all locations. Great success story!",
+    "createdAt": "2024-01-20T14:15:00Z"
+  },
+  {
+    "Id": 11,
+    "title": "TechCorp Mobile App Development",
+    "value": 65000,
+    "stage": "Lead",
+    "contactId": 1,
+    "probability": 30,
+    "expectedCloseDate": "2024-05-01T00:00:00Z",
+    "notes": "Additional opportunity with existing prospect. Mobile app development services for their internal team.",
+    "createdAt": "2024-03-01T11:30:00Z"
+  },
+  {
+    "Id": 12,
+    "title": "Creative Studio Branding Package",
+    "value": 5500,
+    "stage": "Lost",
+    "contactId": 3,
+    "probability": 0,
+    "expectedCloseDate": "2024-02-15T00:00:00Z",
+    "notes": "Lost to competitor due to price. Client chose lower-cost alternative despite our superior features.",
+    "createdAt": "2024-01-25T09:00:00Z"
+  }
+]
