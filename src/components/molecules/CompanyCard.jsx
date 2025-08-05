@@ -29,12 +29,22 @@ const CompanyCard = ({
   const associatedContactNames = getAssociatedContactNames();
 
   // Get company size badge variant
-  const getSizeBadgeVariant = (size) => {
-    const sizeNumber = parseInt(size.split('-')[0]) || parseInt(size.replace('+', ''));
-    if (sizeNumber >= 1000) return "purple";
-    if (sizeNumber >= 200) return "blue";
-    if (sizeNumber >= 50) return "green";
-    return "gray";
+const getSizeBadgeVariant = (size) => {
+    // Handle null, undefined, or non-string values
+    if (!size || typeof size !== 'string') {
+      return "gray";
+    }
+    
+    try {
+      const sizeNumber = parseInt(size.split('-')[0]) || parseInt(size.replace('+', ''));
+      if (sizeNumber >= 1000) return "purple";
+      if (sizeNumber >= 200) return "blue";
+      if (sizeNumber >= 50) return "green";
+      return "gray";
+    } catch (error) {
+      // Fallback for any parsing errors
+      return "gray";
+    }
   };
 
   // Get industry icon
