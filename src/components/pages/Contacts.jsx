@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/organisms/Header";
 import ContactList from "@/components/organisms/ContactList";
+import AddContactModal from "@/components/molecules/AddContactModal";
 import { contactService } from "@/services/api/contactService";
 import { toast } from "react-toastify";
 
 const Contacts = ({ onMenuClick }) => {
-  const [contacts, setContacts] = useState([]);
+const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [searchValue, setSearchValue] = useState("");
-
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
   const loadContacts = async () => {
     try {
       setLoading(true);
@@ -29,11 +31,24 @@ const Contacts = ({ onMenuClick }) => {
     loadContacts();
   }, []);
 
-  const handleContactClick = (contact) => {
+const handleContactClick = (contact) => {
     toast.info(`Opening contact details for ${contact.name}`);
   };
 
-  const headerActions = [
+  const handleAddContact = async (contactData) => {
+    setIsCreating(true);
+    try {
+      const newContact = await contactService.create(contactData);
+      setContacts(prev => [newContact, ...prev]);
+      toast.success(`Contact ${newContact.name} added successfully!`);
+    } catch (error) {
+      toast.error("Failed to add contact. Please try again.");
+      throw error;
+    } finally {
+      setIsCreating(false);
+    }
+  };
+const headerActions = [
     {
       label: "Import",
       icon: "Upload",
@@ -43,12 +58,12 @@ const Contacts = ({ onMenuClick }) => {
     {
       label: "Add Contact",
       icon: "UserPlus",
-      onClick: () => toast.info("Add Contact feature coming soon!"),
+      onClick: () => setShowAddModal(true),
       variant: "primary"
     }
   ];
 
-  return (
+return (
     <div className="flex-1 overflow-auto">
       <Header 
         title="Contacts"
@@ -76,6 +91,13 @@ const Contacts = ({ onMenuClick }) => {
           />
         </motion.div>
       </main>
+
+      <AddContactModal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        onSubmit={handleAddContact}
+        loading={isCreating}
+      />
     </div>
   );
 };
