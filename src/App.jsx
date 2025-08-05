@@ -8,9 +8,9 @@ import Sidebar from "@/components/organisms/Sidebar";
 import Error from "@/components/ui/Error";
 import Deals from "@/components/pages/Deals";
 import Contacts from "@/components/pages/Contacts";
+import Companies from "@/components/pages/Companies";
 import Dashboard from "@/components/pages/Dashboard";
 import Activities from "@/components/pages/Activities";
-
 
 // Redux setup for user state
 const initialState = {
@@ -326,11 +326,19 @@ function AppContent() {
             </div>
           </div>
         } />
-        <Route path="/deals" element={
+<Route path="/deals" element={
           <div className="h-screen bg-gray-50 flex overflow-hidden">
             <Sidebar isOpen={sidebarOpen} onClose={handleSidebarClose} />
             <div className="flex-1 flex flex-col overflow-hidden lg:ml-72">
               <Deals onMenuClick={handleMenuClick} />
+            </div>
+          </div>
+        } />
+        <Route path="/companies" element={
+          <div className="h-screen bg-gray-50 flex overflow-hidden">
+            <Sidebar isOpen={sidebarOpen} onClose={handleSidebarClose} />
+            <div className="flex-1 flex flex-col overflow-hidden lg:ml-72">
+              <Companies onMenuClick={handleMenuClick} />
             </div>
           </div>
         } />

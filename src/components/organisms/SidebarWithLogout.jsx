@@ -11,13 +11,13 @@ const Sidebar = ({ isOpen, onClose }) => {
   const { logout } = React.useContext(AuthContext);
   const { user } = useSelector((state) => state.user);
   
-  const navigationItems = [
+const navigationItems = [
     { name: "Dashboard", href: "/", icon: "LayoutDashboard" },
     { name: "Contacts", href: "/contacts", icon: "Users" },
+    { name: "Companies", href: "/companies", icon: "Building" },
     { name: "Deals", href: "/deals", icon: "Target" },
     { name: "Activities", href: "/activities", icon: "Activity" }
   ];
-
   const handleLogout = () => {
     if (logout) {
       logout();
