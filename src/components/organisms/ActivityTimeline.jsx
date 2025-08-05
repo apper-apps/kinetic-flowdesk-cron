@@ -22,9 +22,9 @@ const ActivityTimeline = ({
   const activityTypes = ["all", "call", "email", "meeting", "note", "task"];
 
   const activitiesWithContacts = useMemo(() => {
-    return activities.map(activity => ({
+return activities.map(activity => ({
       ...activity,
-      contactName: contacts.find(c => c.Id === activity.contactId)?.name || "Unknown Contact"
+      contactName: contacts.find(c => c.Id === activity.contactId)?.name || contacts.find(c => c.Id === activity.contactId)?.Name || "Unknown Contact"
     }));
   }, [activities, contacts]);
 
@@ -146,7 +146,7 @@ const ActivityTimeline = ({
               
               <div className="space-y-3 pl-4 border-l-2 border-gray-200">
                 {dayActivities.map((activity, index) => (
-                  <motion.div
+<motion.div
                     key={activity.Id}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}

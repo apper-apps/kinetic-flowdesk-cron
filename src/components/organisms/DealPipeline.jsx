@@ -30,9 +30,9 @@ const DealPipeline = ({
   };
 
   const dealsByStage = useMemo(() => {
-    const dealsWithContacts = deals.map(deal => ({
+const dealsWithContacts = deals.map(deal => ({
       ...deal,
-      contactName: contacts.find(c => c.Id === deal.contactId)?.name || "Unknown Contact"
+      contactName: contacts.find(c => c.Id === deal.contactId)?.name || contacts.find(c => c.Id === deal.contactId)?.Name || "Unknown Contact"
     }));
 
     return stages.reduce((acc, stage) => {

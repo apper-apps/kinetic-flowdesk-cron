@@ -22,10 +22,14 @@ const ContactList = ({
   const [filterTag, setFilterTag] = useState("");
 
   const filteredAndSortedContacts = useMemo(() => {
-    let filtered = contacts.filter(contact => {
-      const matchesSearch = contact.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-                           contact.email.toLowerCase().includes(searchValue.toLowerCase()) ||
-                           (contact.company && contact.company.toLowerCase().includes(searchValue.toLowerCase()));
+let filtered = contacts.filter(contact => {
+      const name = contact.name || contact.Name || "";
+      const email = contact.email || "";
+      const company = contact.company || "";
+      
+      const matchesSearch = name.toLowerCase().includes(searchValue.toLowerCase()) ||
+                           email.toLowerCase().includes(searchValue.toLowerCase()) ||
+                           company.toLowerCase().includes(searchValue.toLowerCase());
       
       const matchesTag = !filterTag || (contact.tags && contact.tags.includes(filterTag));
       
@@ -35,7 +39,9 @@ const ContactList = ({
     return filtered.sort((a, b) => {
       switch (sortBy) {
         case "name":
-          return a.name.localeCompare(b.name);
+          const nameA = a.name || a.Name || "";
+          const nameB = b.name || b.Name || "";
+          return nameA.localeCompare(nameB);
         case "company":
           return (a.company || "").localeCompare(b.company || "");
         case "lastContacted":
