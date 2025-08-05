@@ -15,7 +15,7 @@ export const quoteService = {
   async getAll() {
     try {
       const apperClient = getApperClient();
-      const params = {
+const params = {
 fields: [
           { field: { Name: "Name" } },
           { field: { Name: "Tags" } },
@@ -46,12 +46,11 @@ fields: [
         return [];
       }
       
-      return response.data.map(quote => ({
+return response.data.map(quote => ({
         ...quote,
         companyId: quote.companyId?.Id || quote.companyId,
         contactId: quote.contactId?.Id || quote.contactId,
         dealId: quote.dealId?.Id || quote.dealId,
-        billingAddressId: quote.billingAddressId?.Id || quote.billingAddressId,
         shippingAddressId: quote.shippingAddressId?.Id || quote.shippingAddressId
       }));
     } catch (error) {
@@ -94,12 +93,11 @@ fields: [
         return null;
       }
       
-      return {
+return {
         ...response.data,
         companyId: response.data.companyId?.Id || response.data.companyId,
         contactId: response.data.contactId?.Id || response.data.contactId,
         dealId: response.data.dealId?.Id || response.data.dealId,
-        billingAddressId: response.data.billingAddressId?.Id || response.data.billingAddressId,
         shippingAddressId: response.data.shippingAddressId?.Id || response.data.shippingAddressId
       };
     } catch (error) {
@@ -121,7 +119,7 @@ fields: [
     try {
       const apperClient = getApperClient();
       const params = {
-        records: [{
+records: [{
           Name: quoteData.name || `Quote ${Date.now()}`,
           companyId: parseInt(quoteData.companyId),
           contactId: parseInt(quoteData.contactId),
@@ -130,7 +128,7 @@ fields: [
           status: quoteData.status,
           deliveryMethod: quoteData.deliveryMethod,
           expiresOn: quoteData.expiresOn,
-          billingAddressId: parseInt(quoteData.billingAddressId),
+          billingAddressId: quoteData.billingAddressId,
           shippingAddressId: parseInt(quoteData.shippingAddressId)
         }]
       };
@@ -161,11 +159,10 @@ fields: [
         if (successfulRecords.length > 0) {
           const newQuote = successfulRecords[0].data;
           return {
-            ...newQuote,
+...newQuote,
             companyId: newQuote.companyId?.Id || newQuote.companyId,
             contactId: newQuote.contactId?.Id || newQuote.contactId,
             dealId: newQuote.dealId?.Id || newQuote.dealId,
-            billingAddressId: newQuote.billingAddressId?.Id || newQuote.billingAddressId,
             shippingAddressId: newQuote.shippingAddressId?.Id || newQuote.shippingAddressId
           };
         }
@@ -189,7 +186,7 @@ fields: [
   async update(id, quoteData) {
     try {
       const apperClient = getApperClient();
-      const params = {
+const params = {
         records: [{
           Id: id,
           Name: quoteData.name || quoteData.Name,
@@ -200,7 +197,7 @@ fields: [
           status: quoteData.status,
           deliveryMethod: quoteData.deliveryMethod,
           expiresOn: quoteData.expiresOn,
-          billingAddressId: parseInt(quoteData.billingAddressId),
+          billingAddressId: quoteData.billingAddressId,
           shippingAddressId: parseInt(quoteData.shippingAddressId)
         }]
       };
@@ -231,11 +228,10 @@ fields: [
         if (successfulUpdates.length > 0) {
           const updatedQuote = successfulUpdates[0].data;
           return {
-            ...updatedQuote,
+...updatedQuote,
             companyId: updatedQuote.companyId?.Id || updatedQuote.companyId,
             contactId: updatedQuote.contactId?.Id || updatedQuote.contactId,
             dealId: updatedQuote.dealId?.Id || updatedQuote.dealId,
-            billingAddressId: updatedQuote.billingAddressId?.Id || updatedQuote.billingAddressId,
             shippingAddressId: updatedQuote.shippingAddressId?.Id || updatedQuote.shippingAddressId
           };
         }

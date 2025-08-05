@@ -16,7 +16,7 @@ const AddQuoteModal = ({
   addresses = [],
   loading = false 
 }) => {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     name: "",
     companyId: "",
     contactId: "",
@@ -67,8 +67,8 @@ const AddQuoteModal = ({
       newErrors.quoteDate = "Quote date is required";
     }
     
-    if (!formData.billingAddressId) {
-      newErrors.billingAddressId = "Please select a billing address";
+if (!formData.billingAddressId.trim()) {
+      newErrors.billingAddressId = "Please enter a billing address";
     }
     
     if (!formData.shippingAddressId) {
@@ -95,7 +95,7 @@ const AddQuoteModal = ({
   };
 
   const handleClose = () => {
-    setFormData({
+setFormData({
       name: "",
       companyId: "",
       contactId: "",
@@ -330,25 +330,20 @@ const AddQuoteModal = ({
                 {/* Address Selection Row */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Billing Address */}
-                  <div>
+<div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Billing Address *
                     </label>
-                    <select
+                    <textarea
                       value={formData.billingAddressId}
                       onChange={(e) => handleInputChange("billingAddressId", e.target.value)}
+                      placeholder="Enter billing address"
+                      rows={3}
                       className={cn(
-                        "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200",
+                        "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 resize-vertical",
                         errors.billingAddressId && "border-red-500 focus:ring-red-500"
                       )}
-                    >
-                      <option value="">Select billing address</option>
-                      {addresses.map((address) => (
-                        <option key={address.Id} value={address.Id}>
-                          {address.Name}
-                        </option>
-                      ))}
-                    </select>
+                    />
                     {errors.billingAddressId && (
                       <p className="text-sm text-red-600 mt-1">{errors.billingAddressId}</p>
                     )}
