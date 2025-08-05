@@ -19,11 +19,11 @@ export const dealService = {
     return { ...deal };
   },
 
-  async create(dealData) {
+async create(dealData) {
     await delay(400);
     const newDeal = {
       ...dealData,
-      Id: Math.max(0, ...deals.map(d => d.Id)) + 1,
+      Id: deals.length === 0 ? 1 : Math.max(...deals.map(d => d.Id)) + 1,
       createdAt: new Date().toISOString()
     };
     deals.push(newDeal);
