@@ -46,11 +46,17 @@ export const activityService = {
         contactId: activity.contactId?.Id || activity.contactId,
         dealId: activity.dealId?.Id || activity.dealId
       }));
-    } catch (error) {
-      if (error?.response?.data?.message) {
+} catch (error) {
+      // Enhanced error handling for better debugging
+      if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Please ensure the SDK script tag is added to index.html");
+        toast.error("System initialization error. Please refresh the page.");
+      } else if (error?.response?.data?.message) {
         console.error("Error fetching activities:", error?.response?.data?.message);
+        toast.error("Failed to load activities. Please try again.");
       } else {
-        console.error(error.message);
+        console.error("Activity service error:", error.message);
+        toast.error("Unable to load activities. Please check your connection.");
       }
       return [];
     }
@@ -83,14 +89,17 @@ export const activityService = {
       };
     } catch (error) {
       if (error?.response?.data?.message) {
-        console.error(`Error fetching activity with ID ${id}:`, error?.response?.data?.message);
+console.error(`Error fetching activity with ID ${id}:`, error?.response?.data?.message);
+      } else if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Cannot fetch activity details.");
+        toast.error("System error. Please refresh the page.");
       } else {
-        console.error(error.message);
+        console.error(`Activity fetch error for ID ${id}:`, error.message);
+        toast.error("Unable to load activity. Please try again.");
       }
       return null;
     }
   },
-
   async create(activityData) {
     try {
       const apperClient = getApperClient();
@@ -140,14 +149,17 @@ export const activityService = {
       return null;
     } catch (error) {
       if (error?.response?.data?.message) {
-        console.error("Error creating activity:", error?.response?.data?.message);
+console.error("Error creating activity:", error?.response?.data?.message);
+      } else if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Cannot create activity.");
+        toast.error("System error. Please refresh the page and try again.");
       } else {
-        console.error(error.message);
+        console.error("Activity creation error:", error.message);
+        toast.error("Unable to create activity. Please try again.");
       }
       return null;
     }
   },
-
   async update(id, activityData) {
     try {
       const apperClient = getApperClient();
@@ -196,11 +208,17 @@ export const activityService = {
         }
       }
       return null;
-    } catch (error) {
-      if (error?.response?.data?.message) {
+} catch (error) {
+      // Enhanced error handling for activity updates
+      if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Cannot update activity.");
+        toast.error("System error. Please refresh the page and try again.");
+      } else if (error?.response?.data?.message) {
         console.error("Error updating activity:", error?.response?.data?.message);
+        toast.error("Failed to update activity. Please check your changes and try again.");
       } else {
-        console.error(error.message);
+        console.error("Activity update error:", error.message);
+        toast.error("Unable to update activity. Please try again.");
       }
       return null;
     }
@@ -236,11 +254,17 @@ export const activityService = {
         return successfulDeletions.length > 0;
       }
       return false;
-    } catch (error) {
-      if (error?.response?.data?.message) {
+} catch (error) {
+      // Enhanced error handling for activity deletion
+      if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Cannot delete activity.");
+        toast.error("System error. Please refresh the page and try again.");
+      } else if (error?.response?.data?.message) {
         console.error("Error deleting activity:", error?.response?.data?.message);
+        toast.error("Failed to delete activity. Please try again.");
       } else {
-        console.error(error.message);
+        console.error("Activity deletion error:", error.message);
+        toast.error("Unable to delete activity. Please try again.");
       }
       return false;
     }

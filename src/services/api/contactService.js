@@ -47,12 +47,18 @@ export const contactService = {
         ...contact,
         tags: contact.Tags ? contact.Tags.split(',').map(tag => tag.trim()) : [],
         name: contact.Name
-      }));
+}));
     } catch (error) {
-      if (error?.response?.data?.message) {
+      // Enhanced error handling for better debugging
+      if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Please ensure the SDK script tag is added to index.html");
+        toast.error("System initialization error. Please refresh the page.");
+      } else if (error?.response?.data?.message) {
         console.error("Error fetching contacts:", error?.response?.data?.message);
+        toast.error("Failed to load contacts. Please try again.");
       } else {
-        console.error(error.message);
+        console.error("Contact service error:", error.message);
+        toast.error("Unable to load contacts. Please check your connection.");
       }
       return [];
     }
@@ -84,12 +90,18 @@ export const contactService = {
         ...response.data,
         tags: response.data.Tags ? response.data.Tags.split(',').map(tag => tag.trim()) : [],
         name: response.data.Name
-      };
+};
     } catch (error) {
-      if (error?.response?.data?.message) {
+      // Enhanced error handling for single contact fetch
+      if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Cannot fetch contact details.");
+        toast.error("System error. Please refresh the page.");
+      } else if (error?.response?.data?.message) {
         console.error(`Error fetching contact with ID ${id}:`, error?.response?.data?.message);
+        toast.error(`Failed to load contact details.`);
       } else {
-        console.error(error.message);
+        console.error(`Contact fetch error for ID ${id}:`, error.message);
+        toast.error("Unable to load contact. Please try again.");
       }
       return null;
     }
@@ -143,12 +155,18 @@ export const contactService = {
           };
         }
       }
-      return null;
+return null;
     } catch (error) {
-      if (error?.response?.data?.message) {
+      // Enhanced error handling for contact creation
+      if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Cannot create contact.");
+        toast.error("System error. Please refresh the page and try again.");
+      } else if (error?.response?.data?.message) {
         console.error("Error creating contact:", error?.response?.data?.message);
+        toast.error("Failed to create contact. Please check your input and try again.");
       } else {
-        console.error(error.message);
+        console.error("Contact creation error:", error.message);
+        toast.error("Unable to create contact. Please try again.");
       }
       return null;
     }
@@ -203,11 +221,17 @@ export const contactService = {
         }
       }
       return null;
-    } catch (error) {
-      if (error?.response?.data?.message) {
+} catch (error) {
+      // Enhanced error handling for contact updates
+      if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Cannot update contact.");
+        toast.error("System error. Please refresh the page and try again.");
+      } else if (error?.response?.data?.message) {
         console.error("Error updating contact:", error?.response?.data?.message);
+        toast.error("Failed to update contact. Please check your changes and try again.");
       } else {
-        console.error(error.message);
+        console.error("Contact update error:", error.message);
+        toast.error("Unable to update contact. Please try again.");
       }
       return null;
     }
@@ -243,11 +267,17 @@ export const contactService = {
         return successfulDeletions.length > 0;
       }
       return false;
-    } catch (error) {
-      if (error?.response?.data?.message) {
+} catch (error) {
+      // Enhanced error handling for contact deletion
+      if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Cannot delete contact.");
+        toast.error("System error. Please refresh the page and try again.");
+      } else if (error?.response?.data?.message) {
         console.error("Error deleting contact:", error?.response?.data?.message);
+        toast.error("Failed to delete contact. Please try again.");
       } else {
-        console.error(error.message);
+        console.error("Contact deletion error:", error.message);
+        toast.error("Unable to delete contact. Please try again.");
       }
       return false;
     }

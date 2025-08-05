@@ -1,14 +1,15 @@
+import "@/index.css";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-import { ToastContainer } from "react-toastify";
-import "@/index.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "@/components/organisms/Sidebar";
 import Error from "@/components/ui/Error";
 import Deals from "@/components/pages/Deals";
-import Contacts from "@/components/pages/Contacts";
 import Companies from "@/components/pages/Companies";
+import Contacts from "@/components/pages/Contacts";
 import Dashboard from "@/components/pages/Dashboard";
 import Activities from "@/components/pages/Activities";
 
@@ -261,9 +262,15 @@ function AppContent() {
           }
           dispatch(clearUser());
         }
-      },
+},
       onError: function(error) {
         console.error("Authentication failed:", error);
+        // Enhanced error handling for authentication failures
+        if (error?.message?.includes("SDK")) {
+          toast.error("Authentication system not available. Please refresh the page.");
+        } else {
+          toast.error("Authentication failed. Please try again.");
+        }
       }
     });
   }, []);
@@ -276,9 +283,15 @@ function AppContent() {
         const { ApperUI } = window.ApperSDK;
         await ApperUI.logout();
         dispatch(clearUser());
-        navigate('/login');
+navigate('/login');
       } catch (error) {
         console.error("Logout failed:", error);
+        // Enhanced logout error handling
+        if (error?.message?.includes("SDK")) {
+          toast.error("Logout system error. Please refresh the page.");
+        } else {
+          toast.error("Logout failed. Please try again.");
+        }
       }
     }
   };

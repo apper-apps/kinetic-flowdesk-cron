@@ -34,9 +34,13 @@ const Companies = ({ onMenuClick }) => {
       
       setCompanies(companiesData);
       setContacts(contactsData);
-    } catch (err) {
-      setError("Failed to load companies. Please try again.");
-      toast.error("Failed to load companies");
+} catch (err) {
+      // Enhanced error handling with more specific messaging
+      const errorMessage = err?.message?.includes("SDK") 
+        ? "System initialization error. Please refresh the page." 
+        : "Failed to load companies. Please check your connection and try again.";
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

@@ -26,9 +26,13 @@ const [deals, setDeals] = useState([]);
       
       setDeals(dealsData);
       setContacts(contactsData);
-    } catch (err) {
-      setError("Failed to load deals. Please try again.");
-      toast.error("Failed to load deals");
+} catch (err) {
+      // Enhanced error handling with more specific messaging
+      const errorMessage = err?.message?.includes("SDK") 
+        ? "System initialization error. Please refresh the page." 
+        : "Failed to load deals. Please check your connection and try again.";
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

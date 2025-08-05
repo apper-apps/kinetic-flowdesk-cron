@@ -32,9 +32,13 @@ const Dashboard = ({ onMenuClick }) => {
       setContacts(contactsData);
       setDeals(dealsData);
       setActivities(activitiesData);
-    } catch (err) {
-      setError("Failed to load dashboard data. Please try again.");
-      toast.error("Failed to load dashboard data");
+} catch (err) {
+      // Enhanced error handling with more specific messaging
+      const errorMessage = err?.message?.includes("SDK") 
+        ? "System initialization error. Please refresh the page." 
+        : "Failed to load dashboard data. Please check your connection and try again.";
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

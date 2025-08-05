@@ -47,12 +47,18 @@ export const dealService = {
       return response.data.map(deal => ({
         ...deal,
         contactId: deal.contactId?.Id || deal.contactId
-      }));
+}));
     } catch (error) {
-      if (error?.response?.data?.message) {
+      // Enhanced error handling for better debugging
+      if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Please ensure the SDK script tag is added to index.html");
+        toast.error("System initialization error. Please refresh the page.");
+      } else if (error?.response?.data?.message) {
         console.error("Error fetching deals:", error?.response?.data?.message);
+        toast.error("Failed to load deals. Please try again.");
       } else {
-        console.error(error.message);
+        console.error("Deal service error:", error.message);
+        toast.error("Unable to load deals. Please check your connection.");
       }
       return [];
     }
@@ -84,12 +90,18 @@ export const dealService = {
       return {
         ...response.data,
         contactId: response.data.contactId?.Id || response.data.contactId
-      };
+};
     } catch (error) {
-      if (error?.response?.data?.message) {
+      // Enhanced error handling for single deal fetch
+      if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Cannot fetch deal details.");
+        toast.error("System error. Please refresh the page.");
+      } else if (error?.response?.data?.message) {
         console.error(`Error fetching deal with ID ${id}:`, error?.response?.data?.message);
+        toast.error(`Failed to load deal details.`);
       } else {
-        console.error(error.message);
+        console.error(`Deal fetch error for ID ${id}:`, error.message);
+        toast.error("Unable to load deal. Please try again.");
       }
       return null;
     }
@@ -144,11 +156,17 @@ export const dealService = {
         }
       }
       return null;
-    } catch (error) {
-      if (error?.response?.data?.message) {
+} catch (error) {
+      // Enhanced error handling for deal creation
+      if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Cannot create deal.");
+        toast.error("System error. Please refresh the page and try again.");
+      } else if (error?.response?.data?.message) {
         console.error("Error creating deal:", error?.response?.data?.message);
+        toast.error("Failed to create deal. Please check your input and try again.");
       } else {
-        console.error(error.message);
+        console.error("Deal creation error:", error.message);
+        toast.error("Unable to create deal. Please try again.");
       }
       return null;
     }
@@ -203,11 +221,17 @@ export const dealService = {
         }
       }
       return null;
-    } catch (error) {
-      if (error?.response?.data?.message) {
+} catch (error) {
+      // Enhanced error handling for deal updates
+      if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Cannot update deal.");
+        toast.error("System error. Please refresh the page and try again.");
+      } else if (error?.response?.data?.message) {
         console.error("Error updating deal:", error?.response?.data?.message);
+        toast.error("Failed to update deal. Please check your changes and try again.");
       } else {
-        console.error(error.message);
+        console.error("Deal update error:", error.message);
+        toast.error("Unable to update deal. Please try again.");
       }
       return null;
     }
@@ -243,11 +267,17 @@ export const dealService = {
         return successfulDeletions.length > 0;
       }
       return false;
-    } catch (error) {
-      if (error?.response?.data?.message) {
+} catch (error) {
+      // Enhanced error handling for deal deletion
+      if (error?.message === "Cannot read properties of undefined (reading 'ApperClient')") {
+        console.error("Apper SDK not loaded. Cannot delete deal.");
+        toast.error("System error. Please refresh the page and try again.");
+      } else if (error?.response?.data?.message) {
         console.error("Error deleting deal:", error?.response?.data?.message);
+        toast.error("Failed to delete deal. Please try again.");
       } else {
-        console.error(error.message);
+        console.error("Deal deletion error:", error.message);
+        toast.error("Unable to delete deal. Please try again.");
       }
       return false;
     }
