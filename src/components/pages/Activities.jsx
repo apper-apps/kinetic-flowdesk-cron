@@ -2,16 +2,20 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/organisms/Header";
 import ActivityTimeline from "@/components/organisms/ActivityTimeline";
+import AddActivityModal from "@/components/molecules/AddActivityModal";
 import { activityService } from "@/services/api/activityService";
 import { contactService } from "@/services/api/contactService";
+import { dealService } from "@/services/api/dealService";
 import { toast } from "react-toastify";
 
 const Activities = ({ onMenuClick }) => {
-  const [activities, setActivities] = useState([]);
+const [activities, setActivities] = useState([]);
   const [contacts, setContacts] = useState([]);
+  const [deals, setDeals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [modalLoading, setModalLoading] = useState(false);
   const loadData = async () => {
     try {
       setLoading(true);
@@ -36,6 +40,20 @@ const Activities = ({ onMenuClick }) => {
     loadData();
   }, []);
 
+const handleAddActivity = async (activityData) => {
+    setModalLoading(true);
+    try {
+      const newActivity = await activityService.create(activityData);
+      setActivities(prev => [newActivity, ...prev]);
+      toast.success("Activity added successfully!");
+    } catch (error) {
+      console.error("Error adding activity:", error);
+      toast.error("Failed to add activity. Please try again.");
+    } finally {
+      setModalLoading(false);
+    }
+  };
+
   const headerActions = [
     {
       label: "Log Call",
@@ -46,12 +64,12 @@ const Activities = ({ onMenuClick }) => {
     {
       label: "Add Activity",
       icon: "Plus",
-      onClick: () => toast.info("Add Activity feature coming soon!"),
+      onClick: () => setIsAddModalOpen(true),
       variant: "primary"
     }
   ];
 
-  return (
+return (
     <div className="flex-1 overflow-auto">
       <Header 
         title="Activities"
@@ -74,6 +92,15 @@ const Activities = ({ onMenuClick }) => {
           />
         </motion.div>
       </main>
+
+      <AddActivityModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSubmit={handleAddActivity}
+        contacts={contacts}
+        deals={deals}
+        loading={modalLoading}
+      />
     </div>
   );
 };
