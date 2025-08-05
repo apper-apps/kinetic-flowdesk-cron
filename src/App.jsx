@@ -12,7 +12,7 @@ import Companies from "@/components/pages/Companies";
 import Contacts from "@/components/pages/Contacts";
 import Dashboard from "@/components/pages/Dashboard";
 import Activities from "@/components/pages/Activities";
-
+import Quotes from "@/components/pages/Quotes";
 // Redux setup for user state
 const initialState = {
   user: null,
@@ -355,11 +355,19 @@ navigate('/login');
             </div>
           </div>
         } />
-        <Route path="/activities" element={
+<Route path="/activities" element={
           <div className="h-screen bg-gray-50 flex overflow-hidden">
             <Sidebar isOpen={sidebarOpen} onClose={handleSidebarClose} />
             <div className="flex-1 flex flex-col overflow-hidden lg:ml-72">
               <Activities onMenuClick={handleMenuClick} />
+            </div>
+          </div>
+        } />
+        <Route path="/quotes" element={
+          <div className="h-screen bg-gray-50 flex overflow-hidden">
+            <Sidebar isOpen={sidebarOpen} onClose={handleSidebarClose} />
+            <div className="flex-1 flex flex-col overflow-hidden lg:ml-72">
+              <Quotes onMenuClick={handleMenuClick} />
             </div>
           </div>
         } />

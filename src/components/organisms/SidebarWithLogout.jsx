@@ -13,10 +13,11 @@ const Sidebar = ({ isOpen, onClose }) => {
   
 const navigationItems = [
     { name: "Dashboard", href: "/", icon: "LayoutDashboard" },
-    { name: "Contacts", href: "/contacts", icon: "Users" },
+    { name: "Activities", href: "/activities", icon: "Activity" },
     { name: "Companies", href: "/companies", icon: "Building" },
+    { name: "Contacts", href: "/contacts", icon: "Users" },
     { name: "Deals", href: "/deals", icon: "Target" },
-    { name: "Activities", href: "/activities", icon: "Activity" }
+    { name: "Quotes", href: "/quotes", icon: "FileText" }
   ];
   const handleLogout = () => {
     if (logout) {
