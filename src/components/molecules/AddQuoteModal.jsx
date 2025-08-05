@@ -71,8 +71,8 @@ if (!formData.billingAddressId.trim()) {
       newErrors.billingAddressId = "Please enter a billing address";
     }
     
-    if (!formData.shippingAddressId) {
-      newErrors.shippingAddressId = "Please select a shipping address";
+if (!formData.shippingAddressId.trim()) {
+      newErrors.shippingAddressId = "Please enter a shipping address";
     }
     
     setErrors(newErrors);
@@ -350,25 +350,20 @@ setFormData({
                   </div>
 
                   {/* Shipping Address */}
-                  <div>
+<div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Shipping Address *
                     </label>
-                    <select
+                    <textarea
                       value={formData.shippingAddressId}
                       onChange={(e) => handleInputChange("shippingAddressId", e.target.value)}
+                      placeholder="Enter shipping address"
+                      rows={3}
                       className={cn(
-                        "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200",
+                        "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 resize-vertical",
                         errors.shippingAddressId && "border-red-500 focus:ring-red-500"
                       )}
-                    >
-                      <option value="">Select shipping address</option>
-                      {addresses.map((address) => (
-                        <option key={address.Id} value={address.Id}>
-                          {address.Name}
-                        </option>
-                      ))}
-                    </select>
+                    />
                     {errors.shippingAddressId && (
                       <p className="text-sm text-red-600 mt-1">{errors.shippingAddressId}</p>
                     )}
